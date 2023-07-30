@@ -1,4 +1,5 @@
 import 'package:billy/features/login/login_screen.dart';
+import 'package:billy/features/password/password_screen.dart';
 import 'package:billy/features/register/register_screen.dart';
 import 'package:billy/shared/repositories/auth_repository.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
       routes: {
         'login': (context) => RegisterScreen(),
         'register': (context) => RegisterScreen(),
+        'password_recovery': (context) => PasswordRecoveryScreen()
       },
     );
   }

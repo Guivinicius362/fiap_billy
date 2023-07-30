@@ -40,6 +40,34 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             const SizedBox(height: 20.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Checkbox(
+                      value: false,
+                      onChanged: (value) => null,
+                    ),
+                    const Text(
+                      'Remember me',
+                      style: TextStyle(fontSize: 12),
+                    )
+                  ],
+                ),
+                TextButton(
+                  onPressed: () {
+                    // Navigate to create account screen
+                    Navigator.pushNamed(context, 'password_recovery');
+                  },
+                  child: const Text(
+                    'Forgot password',
+                    style: TextStyle(fontSize: 12),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8.0),
             ElevatedButton(
               onPressed: () {
                 String email = _emailController.text;
@@ -59,7 +87,11 @@ class _LoginScreenState extends State<LoginScreen> {
               },
               child: const Text('Login'),
             ),
-            const SizedBox(height: 20.0),
+            const SizedBox(height: 8.0),
+            const Text(
+              'Or',
+              style: TextStyle(fontSize: 12),
+            ),
             TextButton(
               onPressed: () {
                 // Navigate to create account screen
@@ -68,13 +100,6 @@ class _LoginScreenState extends State<LoginScreen> {
               child: const Text('Create Account'),
             ),
             const SizedBox(height: 20.0),
-            TextButton(
-              onPressed: () {
-                // Navigate to create account screen
-                Navigator.pushNamed(context, 'register');
-              },
-              child: const Text('Create Account'),
-            ),
           ],
         ),
       ),
