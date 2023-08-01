@@ -12,9 +12,6 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
   bool _showEmailSection = true;
 
   void _sendEmail() {
-    // TODO: Implement the logic to send the recovery email
-    // Replace this with your actual implementation
-
     setState(() {
       _showEmailSection = false;
     });

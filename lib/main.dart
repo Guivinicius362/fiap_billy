@@ -1,3 +1,5 @@
+import 'package:billy/features/home/home_screen.dart';
+import 'package:billy/features/home/main_screen.dart';
 import 'package:billy/features/login/login_screen.dart';
 import 'package:billy/features/password/password_screen.dart';
 import 'package:billy/features/register/register_screen.dart';
@@ -20,14 +22,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xCB03B7)),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Color.fromARGB(255, 203, 3, 183),
+        ),
         useMaterial3: true,
       ),
-      home: const LoginScreen(),
+      home: HomeScreen(),
       routes: {
         'login': (context) => RegisterScreen(),
         'register': (context) => RegisterScreen(),
-        'password_recovery': (context) => PasswordRecoveryScreen()
+        'password_recovery': (context) => PasswordRecoveryScreen(),
+        'home': (context) => MainScreen()
       },
     );
   }
