@@ -1,5 +1,6 @@
 import 'package:billy/features/finance/finance_screen.dart';
 import 'package:billy/features/home/main_screen.dart';
+import 'package:billy/features/mouth_summary/mouth_summary_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,8 +13,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Widget> _screens = [
     MainScreen(),
-    MainScreen(),
     FinancialSummaryScreen(),
+    MouthSummaryScreen()
   ];
 
   @override
@@ -33,8 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.card_membership),
-            label: 'Cartões',
+            icon: Icon(Icons.school),
+            label: 'Finanças',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.school),

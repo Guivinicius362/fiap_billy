@@ -1,3 +1,5 @@
+import 'package:billy/features/billy/economy_flow.dart';
+import 'package:billy/features/billy/start_flow.dart';
 import 'package:billy/features/home/home_screen.dart';
 import 'package:billy/features/home/main_screen.dart';
 import 'package:billy/features/login/login_screen.dart';
@@ -32,7 +34,9 @@ class MyApp extends StatelessWidget {
         'login': (context) => RegisterScreen(),
         'register': (context) => RegisterScreen(),
         'password_recovery': (context) => PasswordRecoveryScreen(),
-        'home': (context) => MainScreen()
+        'home': (context) => MainScreen(),
+        'start_flow': (context) => StartFlowScreen(),
+        'economy_flow': (context) => EconomyFlowScreen()
       },
     );
   }
