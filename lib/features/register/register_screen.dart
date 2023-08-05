@@ -11,6 +11,7 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -38,6 +39,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Future<void> _register() async {
+    String name = _nameController.text;
     String email = _emailController.text;
     String birthdate = _selectedDate.toString().substring(0, 10);
     String address = _addressController.text;
@@ -68,7 +70,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
       return;
     }
 
-    _getIt<AuthRepository>().login(email, password).then(
+    _getIt<AuthRepository>()
+        .register(
+          name,
+          email,
+          birthdate,
+          address,
+          password,
+        )
+        .then(
           (statusCode) => {
             if (statusCode == 201)
               {
@@ -94,6 +104,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              TextField(
+                controller: _nameController,
+                decoration: InputDecoration(
+                  labelText: 'Name',
+                ),
+              ),
+              SizedBox(height: 20.0),
               TextField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,

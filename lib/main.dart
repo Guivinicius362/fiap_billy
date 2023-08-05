@@ -29,9 +29,8 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: HomeScreen(),
+      home: LoginScreen(),
       routes: {
-        'login': (context) => RegisterScreen(),
         'register': (context) => RegisterScreen(),
         'password_recovery': (context) => PasswordRecoveryScreen(),
         'home': (context) => MainScreen(),

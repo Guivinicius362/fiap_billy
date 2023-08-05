@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="billy"
-        android:name="${applicationName}"
+        android:label="fiap_billy"
+        android:name="fiap_billy"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
