@@ -1,4 +1,9 @@
+import 'package:billy/shared/repositories/auth_repository.dart';
+import 'package:billy/shared/toast/toast.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+
+final _getIt = GetIt.instance;
 
 class PasswordRecoveryScreen extends StatefulWidget {
   @override
@@ -11,31 +16,61 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
   late String _newPassword;
   bool _showEmailSection = true;
 
-  void _sendEmail() {
-    setState(() {
-      _showEmailSection = false;
-    });
-  }
+  void _sendEmail() => _getIt<AuthRepository>()
+      .recoverRequest(
+        email: _email,
+      )
+      .then(
+        (statusCode) => {
+          if (statusCode == 200)
+            {
+              setState(
+                () {
+                  _showEmailSection = false;
+                },
+              )
+            }
+          else
+            {
+              showToast(context),
+            }
+        },
+      );
 
-  void _resetPassword() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Password Reset Successful'),
-          content: Text('Your password has been reset successfully.'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
-  }
+  void _resetPassword() => _getIt<AuthRepository>()
+      .PasswordRecovery(
+        email: _email,
+        verificationCode: _verificationCode,
+        newPassword: _newPassword,
+      )
+      .then(
+        (statusCode) => {
+          if (statusCode == 200)
+            {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text('Password Reset Successful'),
+                    content: Text('Your password has been reset successfully.'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('OK'),
+                      ),
+                    ],
+                  );
+                },
+              )
+            }
+          else
+            {
+              showToast(context),
+            }
+        },
+      );
 
   @override
   Widget build(BuildContext context) {

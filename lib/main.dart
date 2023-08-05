@@ -1,17 +1,22 @@
 import 'package:billy/features/billy/economy_flow.dart';
 import 'package:billy/features/billy/start_flow.dart';
+import 'package:billy/features/home/home_repository.dart';
 import 'package:billy/features/home/home_screen.dart';
-import 'package:billy/features/home/main_screen.dart';
 import 'package:billy/features/login/login_screen.dart';
 import 'package:billy/features/password/password_screen.dart';
 import 'package:billy/features/register/register_screen.dart';
 import 'package:billy/shared/repositories/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final _getIt = GetIt.instance;
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
   _getIt.registerFactory<AuthRepository>((() => AuthRepository()));
+  _getIt.registerFactory<HomeRepository>((() => HomeRepository()));
+  _getIt.registerSingleton<SharedPreferences>(prefs);
   runApp(const MyApp());
 }
 
@@ -31,9 +36,10 @@ class MyApp extends StatelessWidget {
       ),
       home: LoginScreen(),
       routes: {
+        'login': (context) => LoginScreen(),
         'register': (context) => RegisterScreen(),
         'password_recovery': (context) => PasswordRecoveryScreen(),
-        'home': (context) => MainScreen(),
+        'home': (context) => HomeScreen(),
         'start_flow': (context) => StartFlowScreen(),
         'economy_flow': (context) => EconomyFlowScreen()
       },

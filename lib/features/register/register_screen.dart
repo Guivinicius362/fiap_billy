@@ -72,15 +72,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     _getIt<AuthRepository>()
         .register(
-          name,
-          email,
-          birthdate,
-          address,
-          password,
+          name: name,
+          email: email,
+          birthdate: birthdate,
+          address: address,
+          password: password,
         )
         .then(
           (statusCode) => {
-            if (statusCode == 201)
+            if (statusCode == 200)
               {
                 Navigator.popAndPushNamed(context, 'home'),
               }
@@ -123,10 +123,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 onTap: () => _selectDate(context),
                 child: AbsorbPointer(
                   child: TextField(
-                    controller: _selectedDate != null
-                        ? TextEditingController(
-                            text: _selectedDate.toString().substring(0, 10))
-                        : TextEditingController(),
+                    controller: TextEditingController(
+                      text: _selectedDate.toString().substring(0, 10),
+                    ),
                     keyboardType: TextInputType.datetime,
                     decoration: InputDecoration(
                       labelText: 'Birthdate (YYYY-MM-DD)',

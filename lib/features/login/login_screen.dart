@@ -2,6 +2,8 @@ import 'package:billy/shared/repositories/auth_repository.dart';
 import 'package:billy/shared/toast/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/scheduler.dart';
 
 final _getIt = GetIt.instance;
 
@@ -15,6 +17,17 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    final token = _getIt<SharedPreferences>().getString('token');
+    if (token != null)
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        Navigator.of(context).popAndPushNamed("home");
+      });
+    ;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 String password = _passwordController.text;
                 _getIt<AuthRepository>().login(email, password).then(
                       (statusCode) => {
-                        if (statusCode == 201)
+                        if (statusCode == 200)
                           {
                             Navigator.popAndPushNamed(context, 'home'),
                           }
@@ -94,7 +107,6 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             TextButton(
               onPressed: () {
-                // Navigate to create account screen
                 Navigator.pushNamed(context, 'register');
               },
               child: const Text('Create Account'),

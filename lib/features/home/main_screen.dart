@@ -1,8 +1,19 @@
+import 'package:billy/features/home/home_model.dart';
+import 'package:billy/features/home/home_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class MainScreen extends StatelessWidget {
-  final String username = "Fulano"; // Replace with the actual username
+final _getIt = GetIt.instance;
 
+class MainScreen extends StatefulWidget {
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  String username = "Fulano";
+  // Replace with the actual username
   final List<CreditCard> creditCards = [
     CreditCard(
       bankName: 'Bank A',
@@ -19,6 +30,20 @@ class MainScreen extends StatelessWidget {
       utilization: 2500.0,
     ),
   ];
+  List<BankAccount> bankAccounts = [];
+  @override
+  void initState() {
+    _getIt<HomeRepository>().home().then(
+          (value) => setState(
+            () {
+              username = value.username;
+              bankAccounts = value.bankAccounts;
+            },
+          ),
+        );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +52,10 @@ class MainScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.account_circle),
-            onPressed: () {},
+            onPressed: () {
+              _getIt<SharedPreferences>().clear();
+              Navigator.of(context).popAndPushNamed('login');
+            },
           ),
         ],
       ),
@@ -51,7 +79,9 @@ class MainScreen extends StatelessWidget {
           ),
           SizedBox(height: 12.0),
           Expanded(
-            child: BankAccountsSummary(), // Custom bank accounts summary widget
+            child: BankAccountsSummary(
+              bankAccounts: bankAccounts,
+            ), // Custom bank accounts summary widget
           ),
           SizedBox(height: 12.0),
           Padding(
@@ -96,16 +126,19 @@ class NotificationCarousel extends StatelessWidget {
 }
 
 class BankAccountsSummary extends StatelessWidget {
+  final List<BankAccount> bankAccounts;
+
+  BankAccountsSummary({required this.bankAccounts});
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: 5,
+      itemCount: bankAccounts.length,
       itemBuilder: (context, index) {
-        double balance = 1000.00;
-
+        final bank = bankAccounts[index];
         return ListTile(
-          title: Text('Saldo'),
-          subtitle: Text('$balance'),
+          title: Text('${bank.bankName}'),
+          subtitle: Text('${bank.balance}'),
           trailing: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
