@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 final _getIt = GetIt.instance;
 
-const baseURL = "http://192.168.15.9:8080/user";
+const baseURL = "http://10.0.2.2:8080/user";
 
 class AuthRepository {
   final sharedPrefs = _getIt<SharedPreferences>();

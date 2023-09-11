@@ -1,10 +1,16 @@
+import 'package:billy/features/bank/create_bank_bloc.dart';
+import 'package:billy/features/bank/create_bank_screen.dart';
 import 'package:billy/features/billy/economy_flow.dart';
 import 'package:billy/features/billy/start_flow.dart';
 import 'package:billy/features/home/home_repository.dart';
 import 'package:billy/features/home/home_screen.dart';
 import 'package:billy/features/login/login_screen.dart';
+import 'package:billy/features/mouth_summary/summary_bloc.dart';
 import 'package:billy/features/password/password_screen.dart';
+import 'package:billy/features/profile/profile_bloc.dart';
+import 'package:billy/features/profile/profille_screen.dart';
 import 'package:billy/features/register/register_screen.dart';
+import 'package:billy/shared/custom_http_client.dart';
 import 'package:billy/shared/repositories/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -16,6 +22,11 @@ void main() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   _getIt.registerFactory<AuthRepository>((() => AuthRepository()));
   _getIt.registerFactory<HomeRepository>((() => HomeRepository()));
+  _getIt.registerFactory<CustomHttpClient>(() => CustomHttpClient());
+  _getIt.registerFactory<SummaryBloc>(() => SummaryBloc());
+  _getIt.registerFactory<ProfileBloc>(() => ProfileBloc());
+  _getIt.registerFactory<BankBloc>(() => BankBloc());
+  _getIt.registerFactory<NotificationsBloc>(() => NotificationsBloc());
   _getIt.registerSingleton<SharedPreferences>(prefs);
   runApp(const MyApp());
 }
@@ -41,7 +52,9 @@ class MyApp extends StatelessWidget {
         'password_recovery': (context) => PasswordRecoveryScreen(),
         'home': (context) => HomeScreen(),
         'start_flow': (context) => StartFlowScreen(),
-        'economy_flow': (context) => EconomyFlowScreen()
+        'profile_screen': (context) => ProfileScreen(),
+        'create_bank_screen': (context) => CreateBankScreen(),
+        // 'economy_flow': (context) => EconomyFlowScreen()
       },
     );
   }

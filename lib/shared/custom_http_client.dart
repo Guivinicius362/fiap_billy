@@ -9,7 +9,7 @@ const baseURL = "http://192.168.15.9:8080";
 class CustomHttpClient {
   final sharedPrefs = _getIt<SharedPreferences>();
 
-  Future<http.Response> get(String url, Map headers) async {
+  Future<http.Response> get({required String url, Map? headers}) async {
     final uri = Uri.parse('${baseURL}/${url}');
     final token = sharedPrefs.getString('token');
     return await http.get(

@@ -1,18 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: BancosVinculados(),
-    );
-  }
-}
-
 class BancosVinculados extends StatefulWidget {
   @override
   _BancosVinculadosState createState() => _BancosVinculadosState();
